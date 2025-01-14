@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time managment</title>
+    <link rel="shortcut icon" href="scr/chronometer.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <h2>Time Management</h2>
+        <ul>
+          <ul>
+            <li>
+              <a
+                class="nav-item active"
+                href="#eisenhower"
+                data-target="eisenhower"
+                >Eisenhower</a
+              >
+            </li>
+            <li>
+              <a class="nav-item" href="#todo" data-target="todo">Todo List</a>
+            </li>
+            <li>
+              <a class="nav-item" href="#pomodoro" data-target="pomodoro"
+                >Pomodoro</a
+              >
+            </li>
+            <li>
+              <a class="nav-item" href="#insights" data-target="insights"
+                >Insights</a
+              >
+            </li>
+            <li>
+              <a class="nav-item" href="#project" data-target="project"
+                >Independent work</a
+              >
+            </li>
+          </ul>
+        </ul>
+        <p>Author: G.Tillabayeva</p>
+      </div>
+
+      <!-- Main section -->
+
+      <div class="main">
+        <div class="header">
+          <div></div>
+          <div class="language">
+            <button class="active-language">
+              <a href="timemanagement_eng.html">ENG</a>
+            </button>
+            <button><a href="timemanagement_uz.html">UZB</a></button>
+            <button><a href="timemanagement_ru.html">RUS</a></button>
+          </div>
+        </div>
+        <div class="content">
+          <div class="card hide" id="todo">
+            <div class="todo-container">
+              <h1>Todo List</h1>
+              <div>
+                <input
+                  type="text"
+                  class="todo-input"
+                  placeholder="Add a task..."
+                  pattern="\S+"
+                  title="Spaces are not allowed"
+                />
+                <button class="todo-button">+</button>
+              </div>
+              <div class="filter">
+                <select>
+                  <option value="all">All</option>
+                  <option value="completed">Completed</option>
+                  <option value="uncompleted">Uncompleted</option>
+                </select>
+              </div>
+              <ul class="todo-list"></ul>
+            </div>
+          </div>
+          <div class="card pomodoro-card hide" id="pomodoro">
+            <div class="pomodoro-timer-container">
+              <h1 id="status-text">Pomodoro</h1>
+              <div class="session-controls">
+                <div class="session-length">
+                  <label for="session-length">Session Length: </label>
+                  <button id="decrease-session">-</button>
+                  <span id="session-length-display">25</span>
+                  <button id="increase-session">+</button>
+                </div>
+                <div class="break-length">
+                  <label for="break-length">Break Length: </label>
+                  <button id="decrease-break">-</button>
+                  <span id="break-length-display">5</span>
+                  <button id="increase-break">+</button>
+                </div>
+              </div>
+              <div class="timer-container">
+                <div class="progress-bar">
+                  <svg width="250" height="250">
+                    <circle
+                      cx="125"
+                      cy="125"
+                      r="120"
+                      class="circle-background"
+                    />
+                    <circle cx="125" cy="125" r="120" class="circle-progress" />
+                  </svg>
+                </div>
+                <div class="timer">
+                  <span id="minutes">25</span>:<span id="seconds">00</span>
+                </div>
+              </div>
+              <div class="controls">
+                <button id="start">Start</button>
+                <button id="pause">Pause</button>
+                <button id="reset">Reset</button>
+              </div>
+            </div>
+          </div>
+          <div class="card" id="eisenhower">
+            <div class="eisenhower-matrix" id="eisenhower">
+              <div class="matrix-row">
+                <div class="task-box-container">
+                  <div class="task do">
+                    <div class="task-header">
+                      <strong>Do</strong>
+                    </div>
+                    <ul class="list-group"></ul>
+                    <button onclick="setCurrentTask(this)">Add Item</button>
+                  </div>
+                </div>
+                <div class="task-box-container">
+                  <div class="task decide">
+                    <div class="task-header">
+                      <strong>Plan</strong>
+                    </div>
+                    <ul class="list-group"></ul>
+                    <button onclick="setCurrentTask(this)">Add Item</button>
+                  </div>
+                </div>
+                <div class="task-box-container">
+                  <div class="task delegate">
+                    <div class="task-header">
+                      <strong>Delegate</strong>
+                    </div>
+                    <ul class="list-group"></ul>
+                    <button onclick="setCurrentTask(this)">Add Item</button>
+                  </div>
+                </div>
+                <div class="task-box-container">
+                  <div class="task delete">
+                    <div class="task-header">
+                      <strong>Delete</strong>
+                    </div>
+                    <ul class="list-group"></ul>
+                    <button onclick="setCurrentTask(this)">Add Item</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal -->
+            <div id="modal" class="modal">
+              <div class="modal-content">
+                <h3>Add Task</h3>
+                <input
+                  id="itemText"
+                  type="text"
+                  placeholder="Enter task description"
+                />
+                <p id="errorText" class="error-text" style="display: none">
+                  Please enter a valid task!
+                </p>
+                <div class="modal-buttons">
+                  <button onclick="addItem()">Add</button>
+                  <button onclick="closeModal()">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card insight-card hide" id="insights">
+            <div class="section">
+              <h1>Taym menejment va uni rivojlantiruvchi metodlar</h1>
+              <p>
+                <strong>Taym menejment</strong> -bu minimal vaqt, energiya va
+                boshqa resurs xarajatlari bilan maqsadga erishish va maksimal
+                natijaga erishish uchun eng samarali texnika va usullardan
+                foydalangan holda o‘z faoliyatini, jamoa yoki tashkilot
+                faoliyatini o‘z vaqtida oqilona tashkil etishga imkon beradigan
+                texnologiya.
+              </p>
+              <h2>Kovi metodologiyasi</h2>
+              <p>
+                Kovi metodologiyasidan foydalanib, biz vaqtni boshqarish
+                tizimini yaratish uchun oltita tamoyilini taklif qilishimiz
+                mumkin: :
+              </p>
+              <ul>
+                <li>
+                  <strong>Izchillik (Mustahkamlik): </strong> individual taym
+                  menejment tizimining barcha elementlarining o‘zaro
+                  bog‘liqligi, birligi (Kovi bo‘yicha: ko‘rish va missiya,
+                  rollar va maqsadlar, ustuvorliklar va rejalar, istaklar va
+                  intizom o‘rtasidagi birlik);
+                </li>
+                <li>
+                  <strong>Muvozanat:</strong> bu holda “muvozanat” hayotning
+                  turli sohalarida (oila, ish, sog‘liq va boshqalar) muhim
+                  maqsadlarga erishish uchun yetarli bo‘lishi uchun vaqtni
+                  uyg‘un taqsimlashni anglatadi;
+                </li>
+                <li>
+                  <strong>Konsentratsiya :</strong> siz doimo faoliyat
+                  turlarining hayotingiz uchun muhim ahamiyatini eslab
+                  qolishingiz va birinchi navbatda shu kabi masalalarga e’tibor
+                  qaratishingiz kerak. Buning uchun Kovi e’tiborni kunlik
+                  rejalashtirishga emas, balki haftalik rejalashtirishga
+                  qaratishni taklif qiladi. Haftalik rejalashtirish muhim, ammo
+                  shoshilinch bo‘lmagan ishlar uchun juda katta vaqtni
+                  zaxiralash imkonini beradi;
+                </li>
+                <li>
+                  <strong>Insoniylik:</strong> sizga shunchaki vazifalarni
+                  bajarish jadvali emas, balki insoniy qiziqishlarni hisobga
+                  oladigan dastur kerak. Oddiy kishilar vaqtni samarali sarflash
+                  haqida o‘ylaydi, hayot markaziga tamoyilni qo‘ygan shaxlar esa
+                  insonlar bilan samaralli vaqt o‘tkazishni ko‘zlaydi.
+                </li>
+                <li>
+                  <strong>Moslashuvchanlik :</strong> sizning rejalaringiz
+                  sizning xo‘jayinlaringiz emas, balki sizning
+                  xizmatkorlaringizdir! Rejalar siz uchun qulay bo‘lishi,
+                  odatlaringizga, ish uslubingizga mos kelishi kerak. Agar kerak
+                  bo‘lsa, rejalashtirilgan narsalarni osongina o‘zgartirishingiz
+                  mumkin;
+                </li>
+                <li>
+                  <strong>Ixchamlik :</strong> rejalashtirish va vaqtni
+                  boshqarish vositalari (masalan, tashkilotchi) iloji boricha
+                  ixcham va har qanday sharoitda ishlash uchun qulay bo‘lishi
+                  kerak. Bu sizga bitta muhim g‘oyani o‘z vaqtida qo‘lga
+                  kiritib, yo‘qotmaslikka yordam beradi.
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <p>
+                Vaqt boshqaruvining birinchi avlodi eslatmalar yoki bajarilishi
+                zarur bo‘lgan ishlar ro‘yhati bilan xarakterlanadi. Bu orqali
+                vaqtimizni va quvvatimizni qaysi vazifaga qaratishimiz kerak
+                ekanligini aniqlab olamiz.
+              </p>
+              <p>
+                Ikkinchi avlod-taqvim va uchrashuvlar kitobchasidir. Ushbu avlod
+                kelajakka nazar solish barobarida voqea-hodisalarni jadvalga
+                solishda mo‘jjallangan.
+              </p>
+              <p>
+                Uchinchi avlod esa hozirda mavjud vaqt boshqaruvi
+                yo‘nalishlarini qamrab oladi. Oldingi avlodlarga qadriyatlarni
+                aniqlash, ustuvor vazifalarni belgilash jihatlarini qo‘shadi.
+                Shuningdek, qadriyatlar asosida aniq maqsadlar qo‘yish va shu
+                asosida yo‘l tutishga diqqat qaratadi. Kundalik ishlarni
+                rejalashdan tashkil topadi.
+              </p>
+              <p>
+                Vaqt boshqaruvining to‘rtinchi avlodining zaruriy ahamiyatini
+                “Vaqtni boshqarish matrisasida” ko‘rish mumkin ya’ni vaqtimizni
+                to‘rt usulda sarflaymiz. Ma’lum faoliyatni shoshilinch va muhim
+                degan ikki sifat bilan ifodalaymiz. Shoshilinch ish-zudlik bilan
+                bajariladigan faoliyatni nazarda tutadi. Shoshilinch masalalar
+                odatda ochiq ko‘rinib turadi.
+              </p>
+              <p>
+                Muhim masalalar esa, aksincha, natija talab qiladi. Vazifangiz,
+                qadriyat va ustuvor maqsadlaringizga hissa qo‘sha oladigan
+                narsalargina siz uchun muhim bo‘la oladi. Insonlar doimo
+                shoshilinch masalalarga reaktiv tarzda javob beradi. Muhim,
+                shoshilinch bo‘lmagan masalalar ko‘proq tashabbus, proaktivlikni
+                talab qiladi. Vaqtni boshqarish matrisaning to‘rt kvadratiga
+                nazar solsak, birinchi kvadratdagi ishlar ham muhim, ham
+                shoshilinch bo‘lib, ularga darxol e’tibor qaratib yuqori natija
+                bilan yakunlash lozim. Odatda jadvaldagi birinchi masalalar
+                muammo yoki inqiroz deb ataladi. Umuman olganda, uchinchi va
+                to‘rtincchi kvadratda vaqt sarflovchilarning hayoti besamar
+                bo‘ladi. Samarali insonlar esa bu kvadratlardan tashqarida
+                turadi, chunki shoshilinch bo‘lishidaan qat’iy nazar bu ishlar
+                ahamiyatsizdir. Shu bilan birga bunday insonlar ikkinchi
+                kvadratda ko‘p vaqt sarflash evaziga birinchi kvadratning
+                kattalashishiga yo‘l qo‘ymaydi.
+              </p>
+            </div>
+
+            <div class="section">
+              <h2>
+                Ikkinchi kvadrat-boshqaruvning yuragi hisoblanadi. Unda
+                shoshilinch bo‘lmagan, ammo muhim masalalar joylashadi. Ikkinchi
+                kvadratdagi vazifalarni bajarish uchun vaqtni uchinchi va
+                to‘rtinchi kvadratdagi ishlarga kamroq vaqt sarflash orqali
+                topish mumkin
+              </h2>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Shoshilinch</th>
+                    <th>Shoshilinch Emas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Muhim</td>
+                    <td class="important">
+                      I. Ish: Dolzarb masalalar. Qisqa muddatda bajarilishi
+                      lozim bo‘lgan loyihalar.
+                    </td>
+                    <td class="important">
+                      II. Ish: Profilaktik ishlar, kompyuterni texnik jihatdan
+                      tekshirish. Tarmoqni sozlash. Yangi imkoniyatlar qidirish.
+                      Rejalashtirish. Kuchni qayta tiklash.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Axamiyatsiz</td>
+                    <td class="important">
+                      III. Ish: Telefon qo‘ng‘iroqlari. Uncha muhim bo‘lmagan
+                      sms-habarlar, uchrashuvlar. Yaqinlashib kelayotgan dolzarb
+                      masalalar. Behuda chalg‘ishlar.
+                    </td>
+                    <td class="important">
+                      IV. Ish: Kundalik ish jadvali. Vaqtni bekorga sarflash.
+                      Bo‘sh vaqt.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="section">
+              <h2>
+                Talabalar va ularning o‘qish samaradorligini oshirish uchun taym
+                menejment texnologiyasining tamoyillaridan ham foydalanishlari
+                mumkin. Bunga quyidagilar kiradi:
+              </h2>
+
+              <ul>
+                <li>
+                  O‘quv mashg‘ulotlari jadvalini ishlab chiqish va o‘quv
+                  materialini o‘rganishni rejalashtirish.
+                </li>
+                <li>
+                  Har bir akademik semestr uchun maqsad va vazifalarni
+                  belgilash.
+                </li>
+                <li>
+                  Topshiriqlar uchun belgilangan muddatlarga rioya qilish va uy
+                  vazifalarini o‘z vaqtida bajarish.
+                </li>
+                <li>
+                  Imtihon va testlarga tayyorgarlik jarayonini
+                  optimallashtirish.
+                </li>
+                <li>
+                  Akademik stressni boshqarish, o‘qish va shaxsiy hayot
+                  o‘rtasidagi muvozanatni saqlash.
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h2>Ustuvorlikni Belgilash Usullari</h2>
+              <p>
+                Ustuvorliklarni belgilashning eng kuchli metodlaridan biri bu
+                ABCDE metodi va 80/20 qoidasidir. 80/20 qoidasi Pareto tamoyili
+                deb ham nomlanadi. Iqtisodchi Vilfredo Pareto bu qoidani ishlab
+                chiqqan va shunday xulosaga keldi: 80/20 qoidasi pulga, mulkka
+                va boshqalarga nisbatan qo‘llaniladi. Butun dunyodagi boylik va
+                mulkning 80 foizini Evropadagi 20 foiz insonlar nazorat
+                qiladilar. Bugungi kunga kelib 80/20 metodini deyarli barcha
+                sohalarda foydalansa bo‘ladi.
+              </p>
+              <ul>
+                <h3>
+                  Pareto tamoyili shuni ko‘rsatadiki, ba’zi hollarda
+                  natijalarning aksariyati ozchilikdan kelib chiqadi: ya’ni
+                </h3>
+                <li>-Harakatning 20 foizi natijaning 80 foizini beradi;</li>
+                <li>-Harakatning 20 foizi natijaning 80 foizini beradi;</li>
+                <li>-20% xatolar 80% buzilishlarga olib keladi;</li>
+                <li>
+                  -Xususiyatlarning 20 foizi foydalanishning 80 foizini tashkil
+                  qiladi.
+                </li>
+              </ul>
+            </div>
+
+            <div class="section">
+              <h3>
+                1940-yillarda amerikalik muhandis doktor Jozef Juran sifat
+                nazoratining otasi sifatida tanilgan, Pareto tamoyilini sifat
+                masalalariga qo‘llay boshladi. Ushbu tamoyil, shuningdek, 80/20
+                qoidasi, hayotiy ozchilik qonuni va omillarning kamligi tamoyili
+                sifatida ham tanilgan. U shunday ta’kidlaydi: har kunni o‘z
+                vazifalaringiz ro‘yxati bilan boshlaganingizda va ishni
+                boshlashdan oldin mas’uliyatli vazifalarni tezda ko‘rib chiqing
+                va bajara oladigan eng yaxshi 20 foiz vazifalarni tanlang. Agar
+                sizda ma’lum bir kunda bajarishingiz kerak bo‘lgan o‘nta narsa
+                ro‘yxati bo‘lsa, ulardan eng muhim va mas’uliyatli ikkitasini
+                tanlab oling. Ushbu ikkita elementni aniqlash va bajarishga
+                harakat qilish bajariladigan umumiy ishlarning 80 foiz
+                natijasini beradi.
+              </h3>
+              <p>
+                <strong>Piter Druker</strong> ko‘pincha bu “90/10 qoidasi”
+                ekanligini aytadi. Ba’zan 10 foiz qilgan ishingiz qiymatning 90
+                foizini tashkil qiladi:
+              </p>
+              <p>
+                Ertangi kun uchun rejalashtirgan barcha ishlar ro‘yxatini
+                tuzganingizdan so‘ng ABCDE metodini qo‘llash orqali
+                ro‘yxatingizni tartibga soling. Bu metodning ma’nosi:
+              </p>
+              <h4>ABCDE metodi kun tartibimizga kiritilgan mashgʻulotlarni</h4>
+              <ul>
+                <li><strong>A-</strong> A- eng zarur birinchi( A1,A2,A3)</li>
+                <li><strong>B-</strong> bunda A dan keyin qilinishi kerak,</li>
+                <li>
+                  <strong>C-</strong> bajarilsa foydali, bajarilmasa zararli,
+                </li>
+                <li>
+                  <strong>D-</strong> bajarilsa yaxshi ammo bajarilmasa zarar
+                  koʻrilmaydigan,
+                </li>
+                <li><strong>E-</strong> E- ixtiyoriy ishlar boʻlib,</li>
+              </ul>
+              <p>
+                kun tartibingizga kiritilgan ishlarni alifbo tartibida amalga
+                oshirasiz. Bunda siz eng qiyin va zarur ishlaringizni kunning
+                birinchi qismida bajarish orqali kuningizda muvaffaqiyatga
+                erishasiz va qolgan mashgʻulotlar uchun ham sizda dafamin
+                garmoni ishlash natijasida kun boʻyi kayfiyatingiz muqobil
+                boʻlib, mashgʻulotlarning qolganini bajarishga ham ishtiyoq
+                paydo boʻladi.
+              </p>
+            </div>
+            <div class="section">
+              <h4>
+                Kun tartibiga butun dunyodagi insonlarning faqatgina 14% i toʻla
+                amal qilar ekan. Koʻpchilik kun tartibi tuzishda oʻta ideal kun
+                tartibi tuzadi va unga amal qila olmaydi. Ular kun tartibidagi
+                mashgʻulotlarni daqiqasigacha tuzadilar va bir mashgʻuloti
+                koʻproq vaqt olishi natijasida butun tuzilgan kun tartibini
+                buzib muvaffaqiyatsizlikka uchrab, kun tartibidan foydalanishdan
+                voz kechib qoʻya qoladilar. Kun tartibini asosan ikki xilga
+                boʻlamiz.
+              </h4>
+              <h5>
+                Birinchisi bizda shartli refleks yaʼni kunlik odat shakliga
+                kirgan mashgʻulotlarimiz( yotishdan oldin tish yuvish,
+                uygʻongach joylarni togʻirlash, ovqatlanish shu kabi).
+              </h5>
+              <p>
+                Ikkinchisi esa bizni maqsadlarimiz yoʻlida qiladigan
+                harakatlarimiz natijasida hosil boʻladigan kunlik ilmimiz va
+                jismimizni yana rivojlantirishga boʻgʻlangan kun tartibi
+                hisoblanadi.
+              </p>
+              <h3>
+                Bizga SMART metodi maqsadlarimizni aniq bir rejaga solishimizga
+                yordam beradi.
+              </h3>
+              <ul>
+                <li>
+                  S - Specific (aniqlik). Bunda oʻz oldingizga qoʻygan
+                  maqsadingizdan oladigan natijangizni aniqlashtirib olinadi.
+                </li>
+                <li>
+                  M- Measurable (miqdor). Oʻz oldimizga qoʻygan maqsadimiz uchun
+                  ketadigan resurslar miqdori.
+                </li>
+                <li>
+                  A-Achievable ( erishish koffitsiyenti). Bunda siz oʻz
+                  imkoniyatlaringizdan kelib chiqqan xolda harakatlaringizni
+                  baholaysiz.
+                </li>
+                <li>
+                  R- Realistic ( Togʻri yondashuv, real qarash). Metodni
+                  amaliyotda qoʻllovchi oʻz maqsadiga togʻri yondashuv bera
+                  olishi inobatga olinadi.
+                </li>
+                <li>
+                  T- Time (Vaqt). Qoʻygan maqsadingizga aniq vaqt belgilaysiz va
+                  maqsadingizni belgilangan muddatda tugatish uchun harakat
+                  qilasiz.
+                </li>
+              </ul>
+              <p>
+                Vazifalarni to‘g‘ri bajarishda keng qo‘llanilagidan usullardan
+                yana biri bu-“Pomodoro” texnikasidir.
+              </p>
+            </div>
+            <div class="section">
+              <h3>Pomodoro Technique yoki “Pomidor” Texnikasi</h3>
+              <p>
+                Bu vaqtdan samarali foydalanish metodi bo‘lib, belgilangan
+                vazifaga maksimum diqqat e’tibor bilan, ortiqcha ruhiy
+                bosimlarsiz erishish uchun ishlab chiqilgan. Bu so‘z
+                italyanchasiga pomidor degan ma’noni anglatib, bu metodni
+                yaratgan Francesco Cirillo dastlab pomidor shaklidagi oshxona
+                soatidan foydalangani uchun shunday atalgan.
+              </p>
+              <p>
+                Bu texnika juda sodda bo‘lib: belgilangan vazifaga sarflamoqchi
+                bo‘lgan vaqtingizni qisqa, 25 daqiqalik “davr”larga bo‘lib
+                olasiz va xar bir shunday davrdan keyin kichik, 5 daqiqalik
+                tanaffus qilasiz. Ya’ni, 25 daqiqa ishlab, 5 daqiqa dam olasiz.
+                Xar bir 25 daqiqa “pomodoro” deb ataladi. Keyinchalik bu butun
+                jarayon nomiga aylanib ketgan. Xar 4 ta “pomodoro” keyin,
+                kattaroq, 15-20 daqiqalik tanaffus qilinadi va ish jarayonidagi
+                kamchilik va yutuqlar yozib chiqiladi.
+              </p>
+              <p>
+                <strong>“Eng qiyin”</strong> texnikasi-amaliyot shuni
+                ko‘rsatadiki, eng murakkab va hajmi katta vazifalarni kunning
+                birinchi yarmiga qoldirish yaxshiroqdir. Birinchidan, u sizni
+                qiyin vazifalar haqida o‘ylashdan ozod qiladi. Ikkinchidan, bu
+                qo‘shimcha motivatsiya bo‘lib xizmat qiladi. Oxir-oqibat, bunday
+                vazifani bajarganingizdan so‘ng, qolgan hamma narsa unchalik
+                qiyin ko‘rinmaydi.
+              </p>
+              <p>
+                <strong>“Filni yeyaveringlar” </strong>texnikasi-bitta katta
+                maqsadni ko‘plab kichik maqsadlarga bo‘ling va unga
+                bosqichma-bosqich boring. Darhaqiqat, ming chaqirimlik yo‘l ham
+                birinchi qadamdan boshlanadi. Kuniga kamida bir qadam qo‘ying,
+                shunda maqsadingizga ancha yaqinroq bo‘lasiz.
+              </p>
+              <p>
+                <strong>“Vakolatlarni topshirish” </strong>texnikasi-sizning
+                bajarishingiz kerak bo‘lgan vazifalar orasida, ehtimol,
+                boshqalar bajara oladigan vazifalar bo‘lishi mumkin. Hamma
+                narsani o‘z zimmangizga olishga urinmang, ishonishni o‘rganing
+                va vazifalarni boshqa ijrochilarga topshiring. Qoidaga ko‘ra, bu
+                jarayondan ko‘ra natija muhimroq bo‘lgan kichik masalalarga
+                tegishli. Har qanday odamning shaxsiy imkoniyatlari cheklangan,
+                shuning uchun vaqtni boshqarish bizga vakolat berishni
+                o‘rgatadi.
+              </p>
+              <h3>Eyzenxauzer matritsasi</h3>
+              <h4>
+                Vazifalarning aniq ro‘yxatini tuzgandan keyin ham, ularga
+                ustuvorlik berish juda qiyin bo‘lishi mumkin. Bunday
+                vaziyatlarda, bizga tanish bo‘lgan “Eyzenxauzer matritsasi”
+                yordam beradi, unda barcha joriy ishlar to‘rtta kvadratga
+                bo‘linadi:
+              </h4>
+              <ul>
+                <li>Kvadrat №1: muhim va shoshilinch</li>
+                <li>Kvadrat №2: Muhim va shoshilinch emas</li>
+                <li>Kvadrat №3: ahamiyatsiz va shoshilinch</li>
+                <li>Kvadrat №4: ahamiyatsiz va shoshilinch emas</li>
+              </ul>
+              <p>
+                Birinchi kvadratga muhim va shoshilinch ishlar - bu o‘z ichiga
+                tanqidiy vaziyatlarni, shaxsan siz uchun muhim bo‘lgan va qisqa
+                vaqt ichida bajarilishi kerak bo‘lgan shoshilinch muammolarni
+                yozing.
+              </p>
+              <p>
+                Ikkinchi kvadratga muhim va shoshilinch bo‘lmagan masalalar -
+                yakuniy natija uchun muhim, lekin darhol bajarishni talab
+                qilmaydigan ishlarni yozing.
+              </p>
+              <p>
+                Uchinchi kvadratga muhim bo‘lmagam va shoshilinch ishlar - bu
+                darhol bajarilishi talab qilinadigan, yakuniy natija uchun muhim
+                bo‘lmagan masalalarni yozing.
+              </p>
+              <p>
+                To‘rtinchi kvadratga ahamiyatsiz va shoshilinch bo‘lmagan ishlar
+                ishlarni yozing.
+              </p>
+              <p>
+                Ko‘rsatmalar: sizning oldingizda mavjud ishlarni kvadratlarga
+                taqsimlashga harakat qiling. Bu mashq orqali siz hayotingiz
+                davomida erishmoqchi bo‘lgan maqsadingizga yetarli darajada
+                to‘g‘ri vaqt sarflayapsizmi yoki yo‘q ekanligini qaysi kvadratga
+                qanday ishlarni yozganingizni tahlil qilish orqali bilib
+                olishingiz mumkin.
+              </p>
+            </div>
+          </div>
+          <div class="card insight-card project hide" id="project">
+            <h1>Mustaqil ta'lim olish uchun Topshiriqlar</h1>
+            <ul>
+              <li>
+                Taym menejment texnologiyasiga berilgan ta’riflardan foydalanib
+                o‘z mualliflik ta’rifingizni bering.
+              </li>
+              <li>
+                <strong>PIN</strong> taqvimi yordamida o‘zingizning bir kunlik
+                va bir haftalik vaqtingizni nimalarga sarflayotganingizni
+                hisoblang.
+              </li>
+              <li>
+                <strong>Eyzenxauzer</strong> matrisasidan foydalanib vazifalar
+                ro‘yhatingizni tuzing.
+              </li>
+              <li>
+                <strong>Pareto tamoyili</strong> asosida muhim maqsad belgilang
+                va unda erishish jarayonida 80/20 nisbatidan foydalaning.
+              </li>
+              <li>
+                Elektron kundalik yordamida bir kunlik rejangizni yarating.
+                <a href="https://www.notion.com/">“Notion”</a> dasturidan
+                foydalaning.
+              </li>
+              <li>
+                O‘z maqsadingizni amalga oshirishga to‘sqinlik qilayotgan yoki
+                kechiktirishga sabab bo‘layotgan holatlarni aniqlang va jadval
+                ko‘rishida tasvirlang.
+              </li>
+              <li>
+                <strong>SMART</strong> metodidan foydalanib aniq maqsadga
+                erishish strategiyasini tuzing.
+              </li>
+              <li>
+                <strong>ABCD</strong> metodidan foydalanib bir kunlik ish
+                faoliyatingizni rejalashtiring
+              </li>
+              <li>
+                O‘quv faoliyatingiz davomida berilgan vazifani bajarish uchun
+                Pomidoro metodidan foydalaning va bajarilgan ishlar ro‘yhatini
+                topshiring.
+              </li>
+              <li>
+                <a href="10.	 https://forms.gle/mxrDuEegy6cvM9wY8"
+                  ><i class="fa-brands fa-google"></i>oogle so‘rovnoma</a
+                >da ishtirok eting va bilimlaringizni mustahkamlang.
+              </li>
+              <li>
+                O‘quv jarayonida yuqori salohiyatli, bilimdon talaba bo‘lish
+                uchun aniq maqsad belgilab, o‘z maqsadingizni
+                <strong>“Filni yeyaveringlar”</strong> texnikasi asosida
+                takomillashtiring.
+              </li>
+              <li>
+                Vaqtni samarali boshqarish uchun qanday metod va texnikalar
+                rioya qilishingiz va ularning qo‘llanilishi haqida jadval
+                asosida hisobot tayyorlang.
+              </li>
+              <li>
+                <strong>“Vakolatlarni topshirish”</strong> texnikasidan
+                foydalangan holda o‘zingiz qiladigan topshiriqlar va kimgadur
+                beriladigan ishlar jadvalini tuzing.
+              </li>
+              <li>
+                Vaqt unumdorligini oshirish uchun o‘z strategiyangizni ishlab
+                chiqing.
+              </li>
+              <li>O‘z maqsadingizga erishish uchun intellekt-kart quring.</li>
+              <li>
+                Bir oylik harakatlaringiz uchun
+                <strong>“Getting things done”</strong> tizimini joriy eting.
+              </li>
+              <li>
+                O‘z-o‘zingizni rivojlantirish uchun harakatlar strategiyasi
+                tuzing.
+              </li>
+              <li>
+                <strong>“Yutuq-yutuq”</strong> menejmenti yordamida o‘qituvchi
+                va talabalar uchun foydali kontekts yarating.
+              </li>
+              <li>
+                <a
+                  href="https://desklog.io/get-started-now?gad_source=1&gclid=CjwKCAjw5Ky1BhAgEiwA5jGujk3vsjN1pMt_I7PQvhE5t2j68xfg5wIgcTAvNe4TefXy1LX1MeVGwBoCXLwQAvD_BwE "
+                  >RescueTime <i class="fa-regular fa-clock"></i
+                ></a>
+                dasturi orqali vazifalaringizni rejalashtiring va bajarilgan
+                ishlar bo‘yicha hisobot topshiring.
+              </li>
+              <li>
+                <a href="https://timeular.com/">Timeular</a>dasturi orqali
+                bajarilgan ishlar hisobotingizni
+                <strong>Excel <i class="fa-solid fa-table"></i></strong> va
+                <strong>Pdf <i class="fa-regular fa-file-pdf"></i></strong>
+                ko‘rinishda taqdim eting
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!--Main section  -->
+        <div class="footer">
+          &copy; 2024 Time managment. All rights reserved. The use of time
+          management technology in the development of independent learning
+          competence of students
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/eisenhour.js"></script>
+    <script src="js/todo.js"></script>
+    <script src="js/pomodoro.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

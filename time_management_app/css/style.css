@@ -1,0 +1,717 @@
+@import url("https://fonts.googleapis.com/css2?family=Clicker+Script&family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+:root {
+  --blush-pink: #f7cac9;
+  --muted-sage-green: #6c7a89;
+  --off-white: #f2f1ef;
+  --golden-sand: #ffd700;
+  --teal-green: #008080;
+  --charcoal-gray: #333333;
+  --soft-beige: #d9cec3;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  outline: none;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  background-color: var(--off-white);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--muted-sage-green);
+  color: var(--off-white);
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 auto 0;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+.sidebar ul li a {
+  color: var(--off-white);
+  font-size: 16px;
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background-color: var(--teal-green);
+}
+
+.sidebar .author {
+  font-size: 14px;
+  text-align: center;
+  margin-top: auto;
+}
+.author {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-top: 1px solid #ddd;
+}
+
+.author-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-image: url(../img/hero.jpg);
+  background-size: cover;
+  margin-right: 15px;
+}
+
+.author-info {
+  font-family: "Arial", sans-serif;
+}
+
+.author-info .name {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--off-white);
+}
+
+.main {
+  margin-left: 250px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: var(--muted-sage-green);
+  color: var(--off-white);
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 250px;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+.header .logo {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.header .user-info {
+  display: flex;
+  align-items: center;
+}
+
+.header .user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.header .user-info .username {
+  font-size: 16px;
+}
+.active {
+  background-color: var(--golden-sand);
+  font-weight: bold;
+}
+.language button {
+  background-color: var(--off-white);
+  border: none;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.active-language a {
+  color: #c82333;
+}
+
+.content {
+  position: relative;
+  top: 45px;
+  flex: 1;
+}
+.language button:hover {
+  background-color: #f2f2f2;
+  transform: translate(0, -2px);
+  transition: transform 0.3s;
+}
+
+.card {
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.2)),
+    url(../../img/5_image.jpg) no-repeat center center/cover fixed;
+  border: 1px solid var(--soft-beige);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 14px;
+  color: var(--charcoal-gray);
+}
+
+.footer {
+  background-color: var(--muted-sage-green);
+  color: var(--off-white);
+  text-align: center;
+  padding: 14px 20px;
+  position: sticky;
+  bottom: 0;
+}
+
+/* Todo List */
+.todo-container {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 35px auto;
+}
+.todo-container h1 {
+  text-align: center;
+  color: #333;
+}
+.todo-input {
+  width: calc(100% - 50px);
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.todo-input:invalid {
+  outline: 2px solid red;
+}
+.todo-button {
+  padding: 10px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.todo-button:hover {
+  background: #218838;
+}
+.todo-list {
+  margin-top: 20px;
+  list-style: none;
+  padding: 0;
+}
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.todo-item.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+.todo-item button {
+  margin-left: 5px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.todo-item button.complete {
+  background: #007bff;
+}
+.todo-item button.complete:hover {
+  background: #0056b3;
+}
+.todo-item button.remove:hover {
+  background: #c82333;
+}
+.filter {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+.filter select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Pomodoro styles */
+.pomodoro-timer-container {
+  text-align: center;
+  background: #fefefe;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  max-width: 470px;
+  margin: 30px auto;
+}
+
+#status-text {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+}
+
+.session-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.session-length,
+.break-length {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+label {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+}
+
+button {
+  background-color: #ff6f61;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff4c3b;
+}
+
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+#session-length-display,
+#break-length-display {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.timer-container {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.progress-bar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+circle {
+  fill: none;
+  stroke-width: 12;
+}
+
+.circle-background {
+  stroke: #ddd;
+}
+
+.circle-progress {
+  stroke: #ff6f61;
+  stroke-dasharray: 753.6;
+  stroke-dashoffset: 753.6;
+  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timer {
+  font-size: 52px;
+  font-weight: bold;
+  color: #ff6f61;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* Eisenhower section */
+.eisenhower-matrix {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-direction: row;
+  width: 100%;
+}
+.matrix-row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+}
+.task-box-container {
+  flex: 1;
+  max-width: 300px;
+  margin: 0 10px;
+  width: 100%;
+}
+
+.task {
+  width: 250px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.task:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.task-header {
+  padding: 10px 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 8px 8px 0 0;
+  color: #fff;
+}
+
+.task.do .task-header {
+  background-color: #4caf50;
+}
+
+.task.decide .task-header {
+  background-color: #ff9800;
+}
+
+.task.delegate .task-header {
+  background-color: #2196f3;
+}
+
+.task.delete .task-header {
+  background-color: #f44336;
+}
+
+.list-group {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+.list-group-item span {
+  flex: 1;
+  text-align: left;
+  word-break: break-word;
+}
+button {
+  margin: 10px auto 15px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007bff;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+.done-btn,
+.delete-btn {
+  margin-left: 10px;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.done-btn {
+  background-color: #4caf50;
+}
+
+.done-btn:hover {
+  background-color: #388e3c;
+}
+
+.delete-btn {
+  background-color: #f44336;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  text-align: center;
+  animation: modalAppear 0.3s ease;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.modal-content input {
+  width: 90%;
+  padding: 10px;
+  margin: 15px 0;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.modal-buttons button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.modal-buttons button:first-child {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.modal-buttons button:first-child:hover {
+  background-color: #388e3c;
+}
+
+.modal-buttons button:last-child {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.modal-buttons button:last-child:hover {
+  background-color: #d32f2f;
+}
+
+.error-text {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Insights */
+.insight-card {
+  color: white;
+}
+.insight-card h1,
+.insight-card h2 {
+  font-weight: 600;
+  color: white;
+}
+
+.insight-card h2 {
+  color: #4caf50;
+}
+
+.insight-card p,
+.insight-card ul {
+  line-height: 1.8;
+  color: white;
+}
+
+.insight-card ul {
+  list-style-type: none;
+  padding-left: 0;
+  color: white;
+}
+
+.insight-card li {
+  padding-left: 20px;
+  position: relative;
+}
+
+.insight-card li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #4caf50;
+}
+
+.insight-card table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.insight-card table th,
+.insight-card table td {
+  padding: 15px;
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid #ddd;
+}
+
+.insight-card table th {
+  background-color: #4caf50;
+  color: white;
+  font-weight: 600;
+}
+
+.insight-card table td {
+  background-color: #f9f9f9;
+  color: #555;
+}
+
+.insight-card table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+.insight-card table td.important {
+  background-color: #ffeb3b;
+  color: #555;
+  font-weight: 600;
+}
+
+.insight-card .container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.insight-card .section {
+  margin-bottom: 40px;
+}
+
+.insight-card .section:last-child {
+  margin-bottom: 0;
+}
+
+.hide {
+  display: none;
+}
+
+.project {
+  color: white;
+}
+.project a {
+  color: white;
+  text-decoration: none;
+}

@@ -1,0 +1,71 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    margin: 0px;
+    font-family: 'Arial', sans-serif;
+    background-color: #F0DCC3;
+    color: #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.pomodoro-container {
+    display: flex;
+    flex-flow: row wrap;
+    box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.5);
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 20px;
+    width: 225px;
+}
+.pomodoro-item {
+    width: 100%;
+}
+.label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #333333;
+}
+.row-pomodoro {
+    margin: 8px 0 16px 0;
+    text-align: center;
+}
+.playerButton {
+    border-top: solid 3px #333333;
+    padding-top: 12px;
+}
+.buttonRow {
+    display: flex;
+    justify-content: space-around;
+}
+.lengthTime {
+    display: inline-block;
+    padding: 0 20px 0 20px;
+    font-size: 35px;
+}
+.btn-updown {
+    font-size: 1.5rem;
+    width: 30px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: 333333;
+    background: transparent;
+    box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.3);
+}
+.btn-controller {
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    background-color: transparent;
+    color: #333333;
+}
+/* Pomodoro item row */
+#timeLeft {
+    font-size: 3rem;
+    font-weight: 700;
+}
